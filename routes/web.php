@@ -1,11 +1,12 @@
 <?php
 
+use App\Http\Controllers\admin\AdminBlogController;
 use App\Http\Controllers\Admin\AdminPageController;
+use App\Http\Controllers\admin\AdminTeamController;
 use App\Http\Controllers\Admin\AnalyticsController;
 use App\Http\Controllers\Admin\DonationController;
 use App\Http\Controllers\Admin\EmailController;
 use App\Http\Controllers\Admin\OrganizationController;
-use App\Http\Controllers\Admin\TeamController;
 use App\Http\Controllers\BlogController;
 use Illuminate\Support\Facades\Route;
 
@@ -34,11 +35,11 @@ Route::prefix('admin')->name('admin.')->group(function () {
     // Pages
     Route::resource('pages', AdminPageController::class);
 
-    // Blogs
-    Route::resource('blogs', BlogController::class);
+    Route::resource('blogs', AdminBlogController::class);
 
+    // Blogs
     // Team Management
-    Route::resource('team', TeamController::class);
+    Route::resource('team', AdminTeamController::class);
 
     // Organization Details
     Route::get('organization', [OrganizationController::class, 'edit'])->name('organization.edit');
