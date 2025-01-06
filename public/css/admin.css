@@ -1,0 +1,185 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Sidebar Styling */
+.sidebar {
+    width: 250px;
+    background-color: #4A3F99; /* Purple color */
+    color: white;
+    position: fixed;
+    height: 100vh;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.sidebar h2 {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar li {
+    margin: 15px 0;
+    display: flex;
+    align-items: center;
+}
+
+.sidebar li i {
+    margin-right: 10px;
+    font-size: 18px;
+}
+
+.sidebar li a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.sidebar li a:hover {
+    text-decoration: underline;
+}
+
+/* Admin Dashboard Content */
+.admin-dashboard {
+    margin-left: 270px; /* Match the width of the sidebar */
+    padding: 20px;
+    background-color: #ffffff;
+    min-height: 100vh; /* Ensure content fills the screen height */
+    overflow: auto; /* Allow scrolling if content exceeds height */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.admin-dashboard h1 {
+    font-size: 28px;
+    color: #4A3F99;
+    margin-bottom: 10px;
+}
+
+.admin-dashboard p {
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+/* Header Section */
+.header {
+    background-color: #4A3F99;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    border-bottom: 5px solid #372f77;
+}
+
+.header h1 {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.header p {
+    font-size: 18px;
+}
+
+/* Add New Page Button */
+.add-new-page {
+    display: inline-block;
+    margin: 10px 0 20px;
+    padding: 10px 20px;
+    background-color: #4A3F99;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.add-new-page:hover {
+    background-color: #372f77;
+}
+
+/* Table Styling */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+.table th, .table td {
+    border: 1px solid #ddd;
+    padding: 12px 15px;
+    text-align: left;
+}
+
+.table th {
+    background-color: #4A3F99;
+    color: white;
+    text-transform: uppercase;
+    font-size: 14px;
+}
+
+.table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.table tr:hover {
+    background-color: #f1f1f1;
+}
+
+.table .actions a {
+    margin-right: 10px;
+    color: #4A3F99;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 5px 10px;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+}
+
+.table .actions a:hover {
+    border-color: #4A3F99;
+    background-color: #f4f4f9;
+}
+
+.table .actions a.delete {
+    color: red;
+}
+
+.table .actions a.delete:hover {
+    background-color: #ffe6e6;
+    border-color: red;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+    }
+
+    .admin-dashboard {
+        margin-left: 0;
+        padding: 10px;
+    }
+
+    .table th, .table td {
+        font-size: 14px;
+        padding: 10px;
+    }
+}
