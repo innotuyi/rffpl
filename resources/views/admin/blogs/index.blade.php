@@ -32,13 +32,21 @@
                         <td>{{ $blog->user_name ?? 'Unknown' }}</td>
                         <td>{{ \Carbon\Carbon::parse($blog->created_at)->format('Y-m-d') }}</td>
                         <td>
-                            <a href="{{ route('admin.blogs.edit', $blog->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                            <!-- Edit Button with Icon -->
+                            <a href="{{ route('admin.blogs.edit', $blog->id) }}" class="btn btn-warning btn-sm">
+                                <i class="fas fa-edit"></i> <!-- Edit Icon -->
+                            </a>
+                        
+                            <!-- Delete Button with Icon -->
                             <form action="{{ route('admin.blogs.destroy', $blog->id) }}" method="POST" style="display: inline-block;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</button>
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">
+                                    <i class="fas fa-trash"></i> <!-- Trash Icon for Delete -->
+                                </button>
                             </form>
                         </td>
+                        
                     </tr>
                 @endforeach
             </tbody>

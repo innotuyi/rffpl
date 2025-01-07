@@ -26,13 +26,21 @@
                         <td> {{$page->content}} </td>
                         <td>{{ $page->slug }}</td>  <!-- Display slug -->
                         <td>
-                            <a href="{{ route('admin.pages.edit', $page->id) }}" class="btn btn-warning">Edit</a>
+                            <!-- Edit Button with Icon -->
+                            <a href="{{ route('admin.pages.edit', $page->id) }}" class="btn btn-warning btn-sm">
+                                <i class="fas fa-edit"></i> <!-- Edit Icon -->
+                            </a>
+                        
+                            <!-- Delete Button with Icon -->
                             <form action="{{ route('admin.pages.destroy', $page->id) }}" method="POST" class="d-inline">
                                 @csrf
                                 @method('DELETE')
-                                <button class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">
+                                    <i class="fas fa-trash"></i> <!-- Trash Icon for Delete -->
+                                </button>
                             </form>
                         </td>
+                        
                     </tr>
                 @endforeach
             </tbody>

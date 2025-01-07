@@ -6,27 +6,36 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Open Sans', sans-serif;
     background-color: #f4f4f9;
     color: #333;
     line-height: 1.6;
 }
 
+/* Dashboard Layout */
+.dashboard-container {
+    display: flex;
+    min-height: 100vh;
+    flex-wrap: wrap;
+}
+
 /* Sidebar Styling */
 .sidebar {
     width: 250px;
-    background-color: #4A3F99; /* Purple color */
+    background-color: #4A3F99;
     color: white;
     position: fixed;
-    height: 100vh;
-    padding: 20px;
+    height: 100%;
+    padding: 15px;
     overflow-y: auto;
+    transition: all 0.3s ease;
+    z-index: 999;
 }
 
 .sidebar h2 {
     text-align: center;
     font-size: 24px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .sidebar ul {
@@ -35,46 +44,69 @@ body {
 }
 
 .sidebar li {
-    margin: 15px 0;
+    margin: 10px 0;  /* Reduced margin between links */
     display: flex;
     align-items: center;
 }
 
-.sidebar li i {
-    margin-right: 10px;
-    font-size: 18px;
-}
-
+/* Sidebar Links */
 .sidebar li a {
     color: white;
     text-decoration: none;
     font-size: 16px;
-    font-weight: bold;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding: 10px 15px;  /* Adjusted padding */
+    transition: all 0.3s ease;
+}
+
+/* Icon Spacing */
+.sidebar li a i {
+    margin-right: 10px;
+}
+
+/* Hover Effect for Links */
+.sidebar li a::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background-color: #f9f9f9;
+    transition: all 0.3s ease-in-out;
+}
+
+.sidebar li a:hover::before {
+    width: 100%;
 }
 
 .sidebar li a:hover {
-    text-decoration: underline;
+    color: #f9f9f9;
+    padding-bottom: 5px; /* Optional padding to create space for the border */
 }
 
-/* Admin Dashboard Content */
-.admin-dashboard {
-    margin-left: 270px; /* Match the width of the sidebar */
+/* Add a slight shadow to the link to make it stand out */
+.sidebar li a:hover {
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.6);
+}
+
+/* Active Link */
+.sidebar li a.active {
+    color: #3498db;
+    font-weight: 700;
+}
+
+/* Main Content Styling */
+.main-content {
+    margin-left: 270px;
     padding: 20px;
+    flex: 1;
     background-color: #ffffff;
-    min-height: 100vh; /* Ensure content fills the screen height */
-    overflow: auto; /* Allow scrolling if content exceeds height */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.admin-dashboard h1 {
-    font-size: 28px;
-    color: #4A3F99;
-    margin-bottom: 10px;
-}
-
-.admin-dashboard p {
-    font-size: 16px;
-    margin-bottom: 20px;
+    min-height: 100vh;
+    overflow: auto;
 }
 
 /* Header Section */
@@ -95,21 +127,12 @@ body {
     font-size: 18px;
 }
 
-/* Add New Page Button */
-.add-new-page {
-    display: inline-block;
-    margin: 10px 0 20px;
-    padding: 10px 20px;
-    background-color: #4A3F99;
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
+/* Content Area */
+.content {
+    background: #f9f9f9;
+    padding: 20px;
     border-radius: 5px;
-    transition: background-color 0.3s ease;
-}
-
-.add-new-page:hover {
-    background-color: #372f77;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 /* Table Styling */
@@ -169,13 +192,27 @@ body {
 @media (max-width: 768px) {
     .sidebar {
         width: 100%;
-        height: auto;
         position: relative;
+        height: auto;
+        padding: 10px;
     }
 
-    .admin-dashboard {
+    .main-content {
         margin-left: 0;
         padding: 10px;
+    }
+
+    .sidebar li {
+        margin: 5px 0;  /* Further reduce margin on small screens */
+    }
+
+    .sidebar li a {
+        font-size: 14px;  /* Adjust font size */
+        padding: 8px 10px;  /* Adjust padding for smaller screens */
+    }
+
+    .header h1 {
+        font-size: 24px;  /* Adjust header font size for small screens */
     }
 
     .table th, .table td {

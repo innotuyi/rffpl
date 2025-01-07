@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
-    class AdminBlogController extends Controller
+class AdminBlogController extends Controller
 {
     /**
      * Display a listing of the blogs.
@@ -18,13 +18,26 @@ use Illuminate\Support\Facades\Storage;
         // Raw SQL query with JOIN to get the blogs and user names
         $blogs = DB::table('blogs')
             ->join('users', 'blogs.user_id', '=', 'users.id')
-            ->select('blogs.id', 'blogs.title','blogs.content', 'blogs.created_at', 'users.name as user_name') // Selecting the necessary fields
+            ->select('blogs.id', 'blogs.title', 'blogs.image', 'blogs.content', 'blogs.created_at', 'users.name as user_name') // Selecting the necessary fields
             ->orderBy('blogs.created_at', 'desc') // Order by created_at or any other desired field
             ->paginate(10); // Paginate the results
-    
+
         return view('admin.blogs.index', compact('blogs'));
     }
-    
+
+
+    public function blog()
+    {
+
+        $blogs = DB::table('blogs')
+            ->join('users', 'blogs.user_id', '=', 'users.id')
+            ->select('blogs.id', 'blogs.title', 'blogs.image', 'blogs.content', 'blogs.created_at', 'users.name as user_name')
+            ->orderBy('blogs.created_at', 'desc')
+            ->paginate(10);
+
+        return view('blog', compact('blogs'));
+    }
+
     /**
      * Show the form for creating a new blog.
      */
@@ -41,20 +54,20 @@ use Illuminate\Support\Facades\Storage;
         // if (!auth()->check()) {
         //     return redirect()->route('login')->with('error', 'You must be logged in to create a blog.');
         // }
-    
+
         // Validate the form input
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'content' => 'required|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
-    
+
         // Handle image upload if provided
         $imagePath = null;
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('blogs', 'public');
         }
-    
+
         // Create a new blog
         Blog::create([
             'title' => $validated['title'],
@@ -62,10 +75,10 @@ use Illuminate\Support\Facades\Storage;
             'image' => $imagePath,
             'user_id' => 1, // Ensure the user is authenticated
         ]);
-    
+
         return redirect()->route('admin.blogs.index')->with('success', 'Blog created successfully.');
     }
-    
+
     /**
      * Show the form for editing the specified blog.
      */
@@ -119,4 +132,3 @@ use Illuminate\Support\Facades\Storage;
         return redirect()->route('admin.blogs.index')->with('success', 'Blog deleted successfully.');
     }
 }
-
