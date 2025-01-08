@@ -42,9 +42,11 @@ class AdminTeamController extends Controller
             'role' => 'required|string|max:255',
             'bio' => 'nullable|string',
             'photo' => 'nullable|image|max:2048',
+            'contact_link' => 'nullable|string',
+
         ]);
 
-        $data = $request->only(['name', 'role', 'bio']);
+        $data = $request->only(['name', 'role', 'bio', 'contact_link']);
         if ($request->hasFile('photo')) {
             $data['photo'] = $request->file('photo')->store('uploads/team', 'public');
         }
@@ -66,10 +68,13 @@ class AdminTeamController extends Controller
             'name' => 'required|string|max:255',
             'role' => 'required|string|max:255',
             'bio' => 'nullable|string',
+            'contact_link' => 'nullable|string',
             'photo' => 'nullable|image|max:2048',
+
+
         ]);
 
-        $data = $request->only(['name', 'role', 'bio']);
+        $data = $request->only(['name', 'role', 'bio', 'contact_link']);
         if ($request->hasFile('photo')) {
             $data['photo'] = $request->file('photo')->store('uploads/team', 'public');
         }

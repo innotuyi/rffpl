@@ -24,12 +24,12 @@
                     <td>{{ $resource->title }}</td>
                     <td>{{ $resource->description }}</td>
                     <td>
-                        @if ($resource->type === 'download' && $resource->file)
-                            <a href="{{ asset('storage/uploads/' . $resource->file) }}" target="_blank">Download File</a>
-                        @elseif($resource->type === 'video' && $resource->video_url)
-                            <a href="{{ $resource->video_url }}" target="_blank">View Video</a>
+                        @if ($resource->type === 'download' && $resource->file_path)
+                            <a href="{{ asset('storage/' . $resource->file_path) }}" target="_blank">Download File</a>
+                        @elseif($resource->type === 'video' && $resource->url)
+                            <a href="{{ $resource->url }}" target="_blank">View Video</a>
                         @elseif($resource->type === 'link' && $resource->url)
-                            <a href="{{ $resource->link_url }}" target="_blank">Visit Link</a>
+                            <a href="{{ $resource->url }}" target="_blank">Visit Link</a>
                         @else
                             <span>No URL Available</span>
                         @endif

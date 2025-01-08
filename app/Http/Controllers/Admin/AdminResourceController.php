@@ -8,13 +8,21 @@ use Illuminate\Http\Request;
 
 class AdminResourceController extends Controller
 {
-      // Display all resources
+      // Display all resources on admin
       public function index()
       {
           $resources = Resource::all();
           return view('admin.resources.index', compact('resources'));
       }
-  
+
+
+       // Display all resources on client
+       public function resources()
+       {
+           $resources = Resource::all();
+           return view('resources', compact('resources'));
+       }
+
       // Show form to create a new resource
       public function create()
       {
@@ -34,7 +42,7 @@ class AdminResourceController extends Controller
   
           // Handle file upload
           if ($request->hasFile('file_path')) {
-              $validated['file_path'] = $request->file('file_path')->store('resources');
+              $validated['file_path'] = $request->file('file_path')->store('resources', 'public');
           }
   
           Resource::create($validated);

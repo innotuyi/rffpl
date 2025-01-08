@@ -23,7 +23,7 @@
         <div class="sidebar">
             <h2>RYFPL Admin</h2>
             <ul>
-                <li><a href="{{ route('admin.pages.index') }}"><i class="fas fa-file-alt"></i> Manage Pages</a></li>
+                {{-- <li><a href="{{ route('admin.pages.index') }}"><i class="fas fa-file-alt"></i> Manage Pages</a></li> --}}
                 <li><a href="{{ route('admin.blogs.index') }}"><i class="fas fa-file-alt"></i> Manage Blog</a></li>
                 <li><a href="{{ route('admin.team.index') }}"><i class="fas fa-users"></i> Manage Team</a></li>
                 <li><a href="{{ route('admin.programs.index') }}"><i class="fas fa-building"></i> Manage Programs</a></li>

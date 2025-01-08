@@ -16,9 +16,10 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NewsLetterController;
 
-Route::view('/', 'home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 // Route::view('/about', 'about');
 // Route::view('/programs', 'programs');
 
@@ -27,10 +28,9 @@ Route::get('/blog', [AdminBlogController::class, 'blog'])->name('blog');
 Route::get('/programs', [AdminProgramController::class, 'programs'])->name('programs');
 Route::get('/about', [AdminTeamController::class, 'about'])->name('about');
 Route::get('/team', [AdminTeamController::class, 'team'])->name('about');
+Route::get('/resources', [AdminResourceController::class, 'resources'])->name('resources');
 
-
-
-Route::view('/resources', 'resources');
+// Route::view('/resources', 'resources');
 Route::view('/donate', 'donate');
 Route::view('/contact', 'contact');
 
