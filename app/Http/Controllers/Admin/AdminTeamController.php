@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Team;
@@ -15,20 +15,21 @@ class AdminTeamController extends Controller
         return view('admin.team.index', compact('team'));
     }
 
+    // Display team page
     public function team()
     {
-
         $team = Team::all();
         return view('team', compact('team'));
     }
 
+    // Display about page with team data
     public function about()
     {
         $team = Team::all();
         return view('about', compact('team'));
     }
 
-    // Add a new team member
+    // Show the form to add a new team member
     public function create()
     {
         return view('admin.team.create');
@@ -42,11 +43,12 @@ class AdminTeamController extends Controller
             'role' => 'required|string|max:255',
             'bio' => 'nullable|string',
             'photo' => 'nullable|image|max:2048',
-            'contact_link' => 'nullable|string',
-
+            'contact_link' => 'nullable|url', // Improved validation for URLs
         ]);
 
         $data = $request->only(['name', 'role', 'bio', 'contact_link']);
+        
+        // Handle photo upload
         if ($request->hasFile('photo')) {
             $data['photo'] = $request->file('photo')->store('uploads/team', 'public');
         }
@@ -55,7 +57,7 @@ class AdminTeamController extends Controller
         return redirect()->route('admin.team.index')->with('success', 'Team member added successfully.');
     }
 
-    // Edit a team member
+    // Show the form to edit a team member
     public function edit(Team $team)
     {
         return view('admin.team.edit', compact('team'));
@@ -68,13 +70,13 @@ class AdminTeamController extends Controller
             'name' => 'required|string|max:255',
             'role' => 'required|string|max:255',
             'bio' => 'nullable|string',
-            'contact_link' => 'nullable|string',
+            'contact_link' => 'nullable|url', // Improved validation for URLs
             'photo' => 'nullable|image|max:2048',
-
-
         ]);
 
         $data = $request->only(['name', 'role', 'bio', 'contact_link']);
+        
+        // Handle photo upload
         if ($request->hasFile('photo')) {
             $data['photo'] = $request->file('photo')->store('uploads/team', 'public');
         }
