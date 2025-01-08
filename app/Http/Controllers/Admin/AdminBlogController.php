@@ -15,20 +15,21 @@ class AdminBlogController extends Controller
      */
     public function index()
     {
-        // Raw SQL query with JOIN to get the blogs and user names
+        // Fetch blogs with their authors' names using a JOIN
         $blogs = DB::table('blogs')
             ->join('users', 'blogs.user_id', '=', 'users.id')
-            ->select('blogs.id', 'blogs.title', 'blogs.image', 'blogs.content', 'blogs.created_at', 'users.name as user_name') // Selecting the necessary fields
-            ->orderBy('blogs.created_at', 'desc') // Order by created_at or any other desired field
-            ->paginate(10); // Paginate the results
+            ->select('blogs.id', 'blogs.title', 'blogs.image', 'blogs.content', 'blogs.created_at', 'users.name as user_name')
+            ->orderBy('blogs.created_at', 'desc')
+            ->paginate(10);
 
         return view('admin.blogs.index', compact('blogs'));
     }
 
-
+    /**
+     * Display blogs on the public blog page.
+     */
     public function blog()
     {
-
         $blogs = DB::table('blogs')
             ->join('users', 'blogs.user_id', '=', 'users.id')
             ->select('blogs.id', 'blogs.title', 'blogs.image', 'blogs.content', 'blogs.created_at', 'users.name as user_name')
@@ -51,10 +52,6 @@ class AdminBlogController extends Controller
      */
     public function store(Request $request)
     {
-        // if (!auth()->check()) {
-        //     return redirect()->route('login')->with('error', 'You must be logged in to create a blog.');
-        // }
-
         // Validate the form input
         $validated = $request->validate([
             'title' => 'required|string|max:255',
@@ -63,20 +60,19 @@ class AdminBlogController extends Controller
         ]);
 
         // Handle image upload if provided
-        $imagePath = null;
-        if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('blogs', 'public');
-        }
+        $imagePath = $request->hasFile('image') 
+            ? $request->file('image')->store('blogs', 'public') 
+            : null;
 
         // Create a new blog
         Blog::create([
             'title' => $validated['title'],
             'content' => $validated['content'],
             'image' => $imagePath,
-            'user_id' => 1, // Ensure the user is authenticated
+            'user_id' => auth()->id(), // Use the authenticated user's ID
         ]);
 
-        return redirect()->route('admin.blogs.index')->with('success', 'Blog created successfully.');
+        return redirect()->route('blogs.index')->with('success', 'Blog created successfully.');
     }
 
     /**
@@ -100,20 +96,22 @@ class AdminBlogController extends Controller
         ]);
 
         // Update blog fields
-        $blog->title = $validated['title'];
-        $blog->content = $validated['content'];
+        $blog->update([
+            'title' => $validated['title'],
+            'content' => $validated['content'],
+        ]);
 
         // Handle image upload if provided
         if ($request->hasFile('image')) {
-            if ($blog->image && Storage::exists('public/' . $blog->image)) {
+            if (optional($blog)->image && Storage::exists('public/' . $blog->image)) {
                 Storage::delete('public/' . $blog->image); // Delete the old image
             }
-            $blog->image = $request->file('image')->store('blogs', 'public');
+            $blog->update([
+                'image' => $request->file('image')->store('blogs', 'public'),
+            ]);
         }
 
-        $blog->save(); // Save changes
-
-        return redirect()->route('admin.blogs.index')->with('success', 'Blog updated successfully.');
+        return redirect()->route('blogs.index')->with('success', 'Blog updated successfully.');
     }
 
     /**
@@ -122,13 +120,13 @@ class AdminBlogController extends Controller
     public function destroy(Blog $blog)
     {
         // Delete the blog's image if it exists
-        if ($blog->image && Storage::exists('public/' . $blog->image)) {
+        if (optional($blog)->image && Storage::exists('public/' . $blog->image)) {
             Storage::delete('public/' . $blog->image);
         }
 
         // Delete the blog
         $blog->delete();
 
-        return redirect()->route('admin.blogs.index')->with('success', 'Blog deleted successfully.');
+        return redirect()->route('blogs.index')->with('success', 'Blog deleted successfully.');
     }
 }
