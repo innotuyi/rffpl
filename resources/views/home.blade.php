@@ -191,6 +191,11 @@
                 </div>
             </div>
         </div>
+
+        <!-- Back to Top Button -->
+<a href="#" id="back-to-top" class="btn btn-primary" style="position: fixed; bottom: 30px; right: 30px; display: none; border-radius: 50%; padding: 10px 15px;">
+    <i class="fas fa-arrow-up"></i>
+</a>
         
 <!-- Add Typewriter Script -->
 <script>
@@ -223,6 +228,27 @@
         typeWriter(textElement2, text2, 100); // Adjust speed as needed
         typeWriter(subtextElement2, subtext2, 50); // Adjust speed as needed
     };
+
+    
+</script>
+
+
+<script>
+    // Show/hide Back to Top button
+    const backToTopButton = document.getElementById('back-to-top');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+            backToTopButton.style.display = 'block';
+        } else {
+            backToTopButton.style.display = 'none';
+        }
+    });
+
+    // Smooth scroll to top
+    backToTopButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
 </script>
 
     </section>

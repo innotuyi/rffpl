@@ -34,15 +34,17 @@
 
             <!-- Newsletter Signup -->
             <div class="col-md-4">
-                @if(session('success'))
+                @if (session('success'))
                     <div class="alert alert-success">{{ session('success') }}</div>
                 @endif
 
                 <form action="{{ route('newsletter.subscribe') }}" method="POST">
                     @csrf
                     <div class="input-group">
-                        <input type="email" name="email" class="form-control" placeholder="Your email address" style="border-radius: 20px; padding: 10px; margin-right: 1rem" required>
-                        <button class="btn" type="submit" style="background-color: green; border-radius: 20px; color: white; padding: 10px 20px;">
+                        <input type="email" name="email" class="form-control" placeholder="Your email address"
+                            style="border-radius: 20px; padding: 10px; margin-right: 1rem" required>
+                        <button class="btn" type="submit"
+                            style="background-color: green; border-radius: 20px; color: white; padding: 10px 20px;">
                             Subscribe
                         </button>
                     </div>
@@ -77,6 +79,18 @@
             excerpt.style.display = 'block';
             btn.textContent = 'Read More'; // Change button text back to "Read More"
         }
+
+        document.addEventListener("scroll", function() {
+            const navbar = document.querySelector(".navbar");
+            if (window.scrollY > 50) {
+                navbar.classList.add("scrolled");
+            } else {
+                navbar.classList.remove("scrolled");
+            }
+        });
+
     }
+
+    
 </script>
 
